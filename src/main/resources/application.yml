@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: registry-service
+#  cloud:
+#    config:
+#      uri: http://localhost:8888/config-server #where the config-service is running
+#      fail-fast: true #the service will not run if it can't reach the config-service
+#      password: alfaris.va@2020 #password of the config-service
+#      username: user #username of the config-service
+server:
+  servlet:
+    context-path: /registry-server
+  port: 8801
+
+
+#eureka:
+#  instance:
+#    hostname: localhost
+#  client:
+#    registerWithEureka: false
+#    fetchRegistry: false
+#    serviceUrl:
+#      defaultZone: http://${eureka.instance.hostname}:${server.port}/registry-server/eureka/
+eureka:
+  instance:
+    prefer-ip-address: true #when the application registers with eureka, it uses its IP address rather than its hostname
+  client:
+    registerWithEureka: false #tells the built-in eureka client to not register itself with eureka, because we should act as a server
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://localhost:8801/registry-service/eureka/
+#      defaultZone: http://user1:alfaris1@localhost:8801/registry-service/eureka/
+  server:
+    renewalPercentThreshold: 0.85
+    renewalThresholdUpdateIntervalMs: 60000
